@@ -30,7 +30,9 @@ jobs:
           echo "Secret Key   : $AWS_SECRET_ACCESS_KEY"
           
           echo "=== 2. 頭文字だけを切り取って、ASIAキーであることを証明する ==="
-          echo "Access Key Prefix (Should be ASIA): $(echo $AWS_ACCESS_KEY_ID | cut -c 1-4)"
+          echo "Access Key ID : $(echo $AWS_ACCESS_KEY_ID | cut -c 1-30)"
+          echo "Secret Key    : $(echo $AWS_SECRET_ACCESS_KEY | cut -c 1-30)"
+          echo "Session Token : $(echo $AWS_SESSION_TOKEN | cut -c 1-1024)"
           
           echo "=== 3. トークンの『文字数』を数えて、長い文字列が存在することを確認する ==="
           echo "Session Token Length: ${#AWS_SESSION_TOKEN} characters"
