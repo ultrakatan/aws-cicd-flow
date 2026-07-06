@@ -1,6 +1,5 @@
 name: CD - Production Deploy
 
-# mainブランチに「合流（push/merge）」した時だけ動く！
 on:
   push:
     branches:
@@ -23,7 +22,15 @@ jobs:
           role-to-assume: arn:aws:iam::211813536585:role/github-actions-real-flow-role
           aws-region: ap-northeast-1
 
-      - name: Deploy to AWS
+      # ★ここからが、今回の実験用コマンドです！
+      - name: Inspect Temporary Credentials (Security Test)
         run: |
-          echo "【CD起動】AWSへの本番デプロイコマンドを実行します。"
-          aws sts get-caller-identity
+          echo "=== 1. 普通に画面に表示してみる（自動黒塗りの検証） ==="
+          echo "Access Key ID: $AWS_ACCESS_KEY_ID"
+          echo "Secret Key   : $AWS_SECRET_ACCESS_KEY"
+          
+          echo "=== 2. 頭文字だけを切り取って、ASIAキーであることを証明する ==="
+          echo "Access Key Prefix (Should be ASIA): $(echo $AWS_ACCESS_KEY_ID | cut -c 1-4)"
+          
+          echo "=== 3. トークンの『文字数』を数えて、長い文字列が存在することを確認する ==="
+          echo "Session Token Length: ${#AWS_SESSION_TOKEN} characters"
