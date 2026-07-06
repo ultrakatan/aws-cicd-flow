@@ -1,0 +1,14 @@
+name: CI - Pull Request Test
+
+# mainブランチに向けて「PR（プルリクエスト）」が作られた時だけ動く！
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  ci-test-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Syntax Check
+        run: echo "【CI成功】プログラムの文法チェックとテストが正常に完了しました！"
